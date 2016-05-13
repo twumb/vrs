@@ -1,0 +1,105 @@
+<div class="row" ng-init="init()">
+  <div class="col-lg-12">
+  <ol class="breadcrumb">
+  <li><a href="#">Home</a></li>
+  <li><a href="#">Library</a></li>
+  <li class="active">Data</li>
+</ol>
+    <rd-widget>
+      <rd-widget-header icon="fa-building" title="Sanctuaries">
+        <a href ng-click="newSetup()">New Sanctuary</a>
+      </rd-widget-header>
+      <rd-widget-body classes="large no-padding">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sanctuary </th>
+                <th> Name of Pastor</th>
+                <th> Contact of Pastor</th>
+                <th> Email of Pastor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="n in sanctuaryList">
+              <td>{{n.sanctuary}}</td>
+              <td>{{n.pastor_name}}</td>
+              <td>{{n.pastor_contact}}</td>
+              <td>{{n.pastor_email}}</td>
+              </tr>
+              
+          </table>
+        </div>      
+      </rd-widget-body>
+      <rd-widget-footer>
+       <!-- <ul class="pagination pagination-sm pull-right">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>-->
+        <div class="clearfix"></div>
+      </rd-widget-footer>
+    </rd-widget>
+  </div>
+
+
+
+</div>
+  <script type="text/ng-template" id="newMemberModal.html">
+        <div class="modal-header">
+            
+            <button type="button" class="close" data-dismiss="modal" ng-click="closeMemberModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Sanctuary Setup Form</h4>
+        </div>
+        <div class="modal-body">
+                   <div class="tab-pane" id="personal">
+
+                <div class="form-group">
+                    <label class="control-label">Sanctuary</label>
+                    <input type="text" class="form-control" ng-model="member.sanctuary" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">District</label>
+                    <input type="text" class="form-control"  ng-model="member.district"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Region</label>
+                    <select class="form-control" ng-model="member.region">
+                      <option>Greater Accra</option>
+                      <option>Ashanti</option>
+                      <option>Western</option>
+                      <option>Eastern</option>
+                      <option>Central</option>
+                      <option>Volta</option>
+                      <option>Brong Ahafo</option>
+                      <option>Northern</option>
+                      <option>Upper East</option>
+                      <option>Upper West</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Name of Pastor </label>
+                    <input type="text"  class="form-control" ng-model="member.pastor_name"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Contact of Pastor</label>
+                    <input type="text" class="form-control"  ng-model="member.pastor_contact"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Email of Pastor</label>
+                    <input type="text"  class="form-control"  ng-model="member.pastor_email"/>
+                </div>
+
+                
+          </div>
+           <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="create()">Save</button>
+      </div>
+        </div>
+    </script>

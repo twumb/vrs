@@ -1,0 +1,295 @@
+<div class="row main_text" ng-init="init()">
+  <div class="col-lg-12">
+    
+    <ol class="breadcrumb">
+    <li ng-class="{active:isSet(1)}"><a href data-toggle="tab" ng-click="setTab(1)">Vessels Compliance Report</a></li>
+    <li ng-class="{active:isSet(2)}"><a href data-toggle="tab" ng-click="setTab(2)">Canoes Compliance Report</a></li>
+  </ol>
+   
+  </div>
+
+  <div class="tab" ng-show="isSet(1)">
+  	    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_compliance()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteComplianceVessel()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportComplianceVessel()">Export Selected</a>&nbsp; | &nbsp;  Page: {{currentVessel}} / {{numPagesVessel}}  <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+           <div class="row">
+                 <div class="pull-right">
+                 <uib-pagination ng-model="currentVessel" total-items="mcs_vesselTotal" max-size="maxSize" ng-click="pageChanged()" num-pages="numPagesVessel" boundary-links="true" class="pagination-sm"  items-per-page="itemsPerpageVessel" >
+      </uib-pagination>
+                 </div>
+                  <div class="pull-left">
+                      <div class="col-xs-12">
+                          <label for="search main_text" >Items per page:</label>
+                          <!--<input type="number" min="1" max="100" class="form-control" ng-model="pageSize"> -->
+                          <select class="form-control" ng-model="itemsPerpageVessel">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select>
+                        </div>
+                  </div>
+              </div>
+
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="2%"><input type="checkbox" ng-model="compliancevessel_select" ng-click="compliancevesselSelect()"></th>
+                <th width="2%"></th>
+                <th width="20%">Inspection ID</th>
+                <th width="10%">Vessel ID</th>
+                <th width="10%">Vessel Type</th>
+                <th width="15%">Inspection Authority</th>
+                <th width="12%">Inspection Date</th>
+                <th width="14%">Inspection Time</th>
+                <th width="15%">Results</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in mcs_compliance | imgThumb: (currentVessel -1)* itemsPerpageVessel |limitTo:itemsPerpageVessel">
+              <td>
+              <input type="checkbox" data-checklist-model="checkList.vessels" checklist-value="d">
+              </td>
+              <td><a href ng-click="edit_compliance_vessel(d)"><i class="fa fa-edit"></i></a></td>
+              <td><a href ng-click="view_compliance_vessel(d)">{{d.Inspection_id}}</a></td>
+              <td>{{d.Vessel_id}}</td>
+              <td>{{d.Type_vessel}}</td>
+              <td>{{d.Name}}</td>
+              <td>{{d.Date_inspection | date:'dd-MMM-yyyy'}}</td>
+              <td>{{d.Time_inspection}}</td>
+              <td>{{d.Inspection_results}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+
+
+
+        </div>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+  <div class="tab" ng-show="isSet(2)">
+  	    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_ ">
+     <a href ng-click="addNew()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+  No Records
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+
+                <th>Inspection ID</th>
+                <th>Vessel ID</th>
+                <th>Type of Vessel</th>
+                <th>Inspection Authority</th>
+                <th>Date of Inspection</th>
+                <th>Time of Inspection</th>
+                <th>Results</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--<tr ng-repeat="d in mcs_compliance">
+              <td>{{d.Inspection_id}}</td>
+              <td>{{d.Vessel_id}}</td>
+              <td>{{d.Type_vessel}}</td>
+              <td>{{d.Name}}</td>
+              <td>{{d.Date_inspection | date:'mediumDate'}}</td>
+              <td>{{d.Time_inspection}}</td>
+              <td>{{d.Inspection_result}}</td>
+              </tr> -->
+              
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+  </div>
+
+
+<script type="text/ng-template" id="vesselComplianceModal.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="newcomplianceClose()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{vesselcompliancetext}}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">Inspection ID No</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Inspection_id" ng-readonly="read_vessel"   >         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Vessel ID No</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Vessel_id" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Type of Vessel</label>
+              <select class="form-control" ng-model="vesselcompliance.Type_vessel" >
+                <option>Industrial</option>
+                <option>Semi-industrial</option>
+              </select>       
+          </div>
+          <div class="form-group">
+              <label class="control-label">Inspection Authority</label>
+              <select class="form-control" ng-model="vesselcompliance.Authority_inspection">
+                <option></option>
+              </select>        
+          </div>
+          <div class="form-group">
+              <label class="control-label">Name of Inspector</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Name_agent" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Date of Inspection</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Date_inspection" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Time of Inspection</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Time_inspection" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Place of Inspection</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Place_inspection" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">GPS Position</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Position_inspection" ng-readonly="read_vessel" >         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Inspection results</label>
+              <select class="form-control" ng-model="vesselcompliance.Inspection_results">
+                <option>Compliant</option>
+                <option>Not Compliant</option>
+              </select>         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Volume of Fish Confiscated</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Fish_confiscated" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Code end mesh size</label>
+              <input type="text" class="form-control" ng-model="vesselcompliance.Cod_mesh_size" ng-readonly="read_vessel" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Nature of Offense</label>
+              <textarea class="form-control" ng-model="vesselcompliance.Nature_offense" ng-readonly="read_vessel"></textarea>         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Expected Sanction</label>
+              <textarea class="form-control" ng-model="vesselcompliance.Expected_sanction" ng-readonly="read_vessel"></textarea>         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Final Decision</label>
+               <textarea class="form-control" ng-model="vesselcompliance.Final_decision" ng-readonly="read_vessel"></textarea>      
+          </div>
+          <div ng-hide="read_vessel">
+          <button type="button" class="btn btn-primary" ng-click="saveVessel()">{{vesselcompliance_button}}</button>
+          </div>
+      </div>
+    </script>
+
+<script type="text/ng-template" id="alertModal.html">
+        <div class="modal-header btn-danger">
+        <!--<button type="button" class="close" data-dismiss="modal" ng-click="closeAlert()" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <span class="modal-title"><i class="fa fa-warning"></i> Alert</span>
+        </div>
+        <div class="modal-body">
+          {{alertText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="closeAlert()">Ok</button>
+      </div>
+</script>
+
+ <!--<script type="text/ng-template" id="exportModal.html">
+        <div class="modal-header  btn-success">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeExport()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Export</span>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="10%"> &nbsp;</th>
+                  <th width="30%"> &nbsp;</th>
+                  <th width="60%"> &nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="excel"> </td>
+                <td><i class="fa fa-file-excel-o"></i></td>
+                <td> CSV</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="pdf"></td>
+                <td><i class="fa fa-file-pdf-o"></i> </td>
+                <td> PDF</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="word"></td>
+                <td><i class="fa fa-file-word-o"></i></td>
+                <td> Word</td>
+              </tr>
+              </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="export()">Export</button>
+      </div>
+    </script> -->
+
+
+    <script type="text/ng-template" id="exportModal.html">
+        <div class="modal-header  btn-success">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeExport()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Export</span>
+        </div>
+        <div class="modal-body">
+          <div class="list-group">
+          <button type="button" ng-csv="exportdata" filename="test.csv"  field-separator="," decimal-separator="." class="btn btn-block btn-success">CSV</button>
+          <button type="button" class="btn btn-block btn-success" ng-click="PDFprinter()">PDF</button>
+
+            </div>
+        </div>
+    </script>
+
+<script type="text/ng-template" id="deleteModal.html">
+        <div class="modal-header  btn-danger">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeDelete()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Delete</span>
+        </div>
+        <div class="modal-body">
+          {{deleteText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="delete()">Yes</button>
+          <button type="button" class="btn btn-danger" ng-click="nodelete()">No</button>
+      </div>
+    </script>
+
+
+
+	

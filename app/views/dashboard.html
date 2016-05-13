@@ -1,0 +1,193 @@
+<div class="row main_text">
+	<div class="col-lg-3 col-md-6 col-xs-12">
+		<rd-widget>
+			<rd-widget-body>
+				<!--<div class="title">{{vessel_list[0].total}}</div> -->
+				<div class="title">{{ind_vess_total[0].total}}</div>
+				<div class="comment">Industrial Vessels</div>
+				<hr>
+				<div class="row dash_wid">
+				<div class="col-xs-5 ">
+				Inactive <br>
+				{{ind_vess_total[1].total}} 
+				</div>
+				<div class="col-xs-7">
+				Replaced <br>
+				<!--{{ind_vess_total[2].total}} -->
+				{{ isExists(ind_vess_total[2]) ?  ind_vess_total[2].total: '0' }}
+				<!--<div ng-show="!ind_vess_total[2]">{{0}}</div> -->
+
+				</div>
+				</div>
+			
+			</rd-widget-body>
+		</rd-widget>
+
+	</div>
+	<div class="col-lg-3 col-md-6 col-xs-12">
+		<rd-widget>
+			<rd-widget-body>
+				<div class="title">{{semi_vess_total[0].total}}</div>
+				<div class="comment">Semi-Industrial Vessels</div>
+				<hr>
+				<div class="row dash_wid">
+				<div class="col-xs-5">
+				Inactive <br>
+				{{semi_vess_total[1].total}}
+				</div>
+				<div class="col-xs-7">
+				Replaced <br>
+				{{ isExists(semi_vess_total[2]) ?  semi_vess_total[2].total: '0' }}
+
+				</div>
+				</div>
+			</rd-widget-body>
+		</rd-widget>
+	</div>
+	<div class="col-lg-3 col-md-6 col-xs-12">
+		<rd-widget>
+			<rd-widget-body>
+				<div class="title">{{canoes_list[0].total | number:0}}</div>
+				<div class="comment">Canoes</div>
+				<hr>
+				<div class="row dash_wid">
+				<div class="col-xs-6">
+				Active <br>
+				12
+				</div>
+				<div class="col-xs-6">
+				Inactive <br>
+				12
+				</div>
+				</div>
+			</rd-widget-body>
+		</rd-widget>
+	</div>
+	<div class="col-lg-3 col-md-6 col-xs-12">
+		<rd-widget>
+			<rd-widget-body >
+				<div class="title">{{industrial_license_dash.length +  semi_license_dash.length}}</div>
+				<div class="comment">Licensed Vessels</div>
+				<hr>
+				<div class="row dash_wid">
+				<div class="col-xs-7">
+				Industrial <br>
+				{{industrial_license_dash.length}}
+				</div> 
+				<div class="col-xs-5">
+				Semi <br>
+				{{semi_license_dash.length}}
+				</div>
+				</div>
+			</rd-widget-body>
+		</rd-widget>
+	</div>
+
+
+<div class="row">
+	<div class="col-lg-6">
+
+	<div class="panel">
+			<div class="panel-heading  green_">Monthly Licensed Vessels</div>
+			<div class="panel-body">
+
+					<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr><th class="text-left" width="30%">Month</th><th width="40%">Industrial</th>
+							<th width="30%">Semi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr><td class="text-left">January</td><td>{{industrial[1].jan}}</td><td>{{semi_industrial[1].jan}}</td></tr>
+							<tr><td class="text-left">February</td><td>{{industrial[1].feb}}</td><td>{{semi_industrial[1].feb}}</td></tr>
+							<tr><td class="text-left">March</td><td>{{industrial[1].mar}}</td><td>{{semi_industrial[1].mar}}</td></tr>
+							<tr><td class="text-left">April</td><td>{{industrial[1].apr}}</td><td>{{semi_industrial[1].apr}}</td></tr>
+							<tr><td class="text-left">May</td><td>{{industrial[1].may}}</td><td>{{semi_industrial[1].may}}</td></tr>
+							<tr><td class="text-left">June</td><td>{{industrial[1].jun}}</td><td>{{semi_industrial[1].jun}}</td></tr>
+							<tr><td class="text-left">July</td><td>{{industrial[1].jul}}</td><td>{{semi_industrial[1].jul}}</td></tr>
+							<tr><td class="text-left">August</td><td>{{industrial[1].aug}}</td><td>{{semi_industrial[1].aug}}</td></tr>
+							<tr><td class="text-left">September</td><td>{{industrial[1].sep}}</td><td>{{semi_industrial[1].sep}}</td></tr>
+							<tr><td class="text-left">October</td><td>{{industrial[1].oct}}</td><td>{{semi_industrial[1].oct}}</td></tr>
+							<tr><td class="text-left">November</td><td>{{industrial[1].nov}}</td><td>{{semi_industrial[1].nov}}</td></tr>
+							<tr><td class="text-left">December</td><td>{{industrial[1].dec}}</td><td>{{semi_industrial[1].dec}}</td></tr>
+						</tbody>
+							
+					</table>
+        		</div>
+
+			</div>
+	</div>
+
+	</div>
+	<div class="col-lg-6">
+
+	<div class="panel">
+			<div class="panel-heading green_">Monthly Licenses Issuance</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr><th class="text-left" width="30%">Month</th><th width="40%">Industrial</th>
+							<th width="30%">Semi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr><td class="text-left">January</td><td>{{industrial[0].jan}}</td><td>{{semi_industrial[0].jan}}</td></tr>
+							<tr><td class="text-left">February</td><td>{{industrial[0].feb}}</td><td>{{semi_industrial[0].feb}}</td></tr>
+							<tr><td class="text-left">March</td><td>{{industrial[0].mar}}</td><td>{{semi_industrial[0].mar}}</td></tr>
+							<tr><td class="text-left">April</td><td>{{industrial[0].apr}}</td><td>{{semi_industrial[0].apr}}</td></tr>
+							<tr><td class="text-left">May</td><td>{{industrial[0].may}}</td><td>{{semi_industrial[0].may}}</td></tr>
+							<tr><td class="text-left">June</td><td>{{industrial[0].jun}}</td><td>{{semi_industrial[0].jun}}</td></tr>
+							<tr><td class="text-left">July</td><td>{{industrial[0].jul}}</td><td>{{semi_industrial[0].jul}}</td></tr>
+							<tr><td class="text-left">August</td><td>{{industrial[0].aug}}</td><td>{{semi_industrial[0].aug}}</td></tr>
+							<tr><td class="text-left">September</td><td>{{industrial[0].sep}}</td><td>{{semi_industrial[0].sep}}</td></tr>
+							<tr><td class="text-left">October</td><td>{{industrial[0].oct}}</td><td>{{semi_industrial[0].oct}}</td></tr>
+							<tr><td class="text-left">November</td><td>{{industrial[0].nov}}</td><td>{{semi_industrial[0].nov}}</td></tr>
+							<tr><td class="text-left">December</td><td>{{industrial[0].dec}}</td><td>{{semi_industrial[0].dec}}</td></tr>
+							<tr><td class="text-left"><b>Yearly Total</b></td><td><b>{{industrial_total}}</b></td><td><b>{{semi_industrial_total}}</b></td></tr>
+						</tbody>	
+					</table>
+        		</div>
+
+			</div>
+			
+	</div>
+		
+	</div>
+</div>
+
+
+	<div class="col-lg-12">
+		<div class="panel">
+            <div class="panel-heading green_">
+     	<ol class="breadcrumb">
+           <li ng-class="{active:mine==1}"><a href data-toggle="tab" ng-click="mine=1">Issuance Graph</a></li>
+           <li ng-class="{active:mine==2}"><a href data-toggle="tab" ng-click="mine=2">Licensed Vessels</a></li>
+           
+        </ol>
+            </div>
+            <div class="panel-body">
+            <div ng-show="mine==1">
+            <div class="col-md-12">
+            	<canvas id="line" class="chart chart-line" chart-data="data"
+  chart-labels="labels" chart-legend="true" chart-series="series" chart-colours="['#FF2321', '#B8BE1C']" chart-click="onClick" >
+   				</canvas>
+            </div>
+
+            </div>
+
+
+           <div ng-show="mine==2">
+            <div class="col-md-12">
+            	<canvas id="line2" class="chart chart-line" chart-data="data2"
+  chart-labels="labels" chart-legend="true" chart-series="series" chart-colours="['#FF2321', '#B8BE1C']" chart-click="onClick" >
+   				</canvas>
+            </div>
+
+            </div>
+            </div>
+           </div>
+
+</div>
+

@@ -1,0 +1,111 @@
+<div class="row main_text" ng-init="init()">
+
+  <div class="tab">
+  	    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="deleteAudit()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportAudit()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="2%"><input type="checkbox" ng-model="audit_select" ng-click="auditSelect()"></th>
+               
+                <th width="16%">Date Time</th>
+                <th width="20%">IP</th>
+                <th width="20%">User</th>
+                <th width="40%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in auditList | orderBy:'datetime':true">
+              <td>
+              <input type="checkbox" data-checklist-model="checkList.audits" checklist-value="d.id">
+              </td>
+              
+              <td>{{d.datetime | date:'dd-MMM-yyyy'}}</td>
+              <td>{{d.ip}}</td>
+              <td>{{d.user}}</td>
+              <td>{{d.action}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+
+</div>
+   <script type="text/ng-template" id="deleteModal.html">
+        <div class="modal-header  btn-danger">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeDelete()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Delete</span>
+        </div>
+        <div class="modal-body">
+          {{deleteText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="delete()">Yes</button>
+          <button type="button" class="btn btn-danger" ng-click="nodelete()">No</button>
+      </div>
+    </script>
+    
+<script type="text/ng-template" id="alertModal.html">
+        <div class="modal-header btn-danger">
+        <!--<button type="button" class="close" data-dismiss="modal" ng-click="closeAlert()" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <span class="modal-title"><i class="fa fa-warning"></i> Alert</span>
+        </div>
+        <div class="modal-body">
+          {{alertText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="closeAlert()">Ok</button>
+      </div>
+</script>
+
+<script type="text/ng-template" id="exportModal.html">
+        <div class="modal-header  btn-success">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeExport()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Export</span>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="10%"> &nbsp;</th>
+                  <th width="30%"> &nbsp;</th>
+                  <th width="60%"> &nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="excel"> </td>
+                <td><i class="fa fa-file-excel-o"></i></td>
+                <td> CSV</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="pdf"></td>
+                <td><i class="fa fa-file-pdf-o"></i> </td>
+                <td> PDF</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="word"></td>
+                <td><i class="fa fa-file-word-o"></i></td>
+                <td> Word</td>
+              </tr>
+              </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="export()">Export</button>
+      </div>
+    </script>
+  

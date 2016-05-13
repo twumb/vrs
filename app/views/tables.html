@@ -1,0 +1,133 @@
+<div class="row" ng-init="init()">
+  <div class="col-lg-6">
+    <rd-widget>
+      <rd-widget-header icon="fa-tasks" title="Contribution Details">
+        <!--<a href="#">Manage</a> -->
+
+
+      </rd-widget-header>
+
+      <rd-widget-body classes="large padding large">
+        <form>
+        <div class="form-group">
+          <label>Sanctuary</label>
+          <select class="form-control" ng-model="sanc.sanctuary">
+            <option value="{{s._id}}" ng-repeat="s in sanctuaryList">{{s.sanctuary}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+           <label>Amount Paid</label>
+
+          <input type="text" class="form-control" ng-model="sanc.amount">
+        </div>
+        <div class="form-group">
+           <label>Month</label>
+          <select class="form-control" ng-model="sanc.month">
+            <option>Jan</option>
+             <option>Feb</option>
+              <option>Mar</option>
+               <option>Apr</option>
+                <option>May</option>
+                 <option>Jun</option>
+                  <option>Jul</option>
+                   <option>Aug</option>
+                    <option>Sep</option>
+                     <option>Oct</option>
+                      <option>Nov</option>
+                       <option>Dec</option>
+          </select>
+        </div>
+        <div class="form-group">
+           <label>Purpose</label>
+          <!--<input type="text" class="form-control" ng-model="sanc.purpose"> -->
+          <select class="form-control" ng-model="sanc.purpose">
+            <option>Missions</option>
+            <option>Accra Returns</option>
+            <option>Branch Returns</option>
+            <option>Salary</option>
+            <option>Dodowa Land</option>
+            <option>Ministerial Levy</option>
+            <option>Souvenirs</option>
+            <option>Others</option>
+          </select>
+          </div>
+        </form>     
+      </rd-widget-body>
+      <rd-widget-footer>
+        <button class="btn btn-success" ng-click="save()"> Save</button>
+        <div class="clearfix"></div>
+      </rd-widget-footer>
+    </rd-widget>
+  </div>
+  <div class="col-lg-6">
+    <rd-widget>
+
+      <rd-widget-header title="Contribution List">
+      
+       
+      </rd-widget-header>
+      <rd-widget-body classes="large no-padding">
+        <div class="row">
+         <br>
+             <div class="col-md-6">
+            <div class="form-group">
+
+                 <select class="form-control" ng-model="list.search" ng-change="getDate()">
+                    <option value=""> All</option>
+                    <option>Jan</option>
+                       <option>Feb</option>
+                        <option>Mar</option>
+                         <option>Apr</option>
+                          <option>May</option>
+                           <option>Jun</option>
+                            <option>Jul</option>
+                             <option>Aug</option>
+                              <option>Sep</option>
+                               <option>Oct</option>
+                                <option>Nov</option>
+                                 <option>Dec</option>
+                 </select>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <select class="form-control" ng-model="list.sanct">
+          <option value="">All</option>
+            <option value="{{m.sanctuary}}" ng-repeat="m in sanctuaryList"> {{m.sanctuary}}</option>
+        </select>
+
+        </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+          <thead>
+          <tr>
+            <th> Month</th>
+            <th> Sanctuary</th>
+            <th> Amount</th>
+          </tr>
+          </thead>
+            <tbody>
+              <tr ng-repeat="d in entriesList | filter:list.search | filter: list.sanct">
+             <!-- <tr ng-repeat="d in resultValue=(d | filter:list.search)"> -->
+              <td>{{d.month}}</td>
+              <td>{{d.sanctuary.sanctuary}}</td>
+              <td>{{d.amount}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+      <rd-widget-footer>
+        <!--<ul class="pagination pagination-sm pull-right">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul> -->
+        <div class="clearfix"></div>
+      </rd-widget-footer>
+    </rd-widget>
+  </div>
+</div>

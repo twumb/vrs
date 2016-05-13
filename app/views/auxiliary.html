@@ -1,0 +1,965 @@
+<div class="row main_text" ng-init="init()" ng-cloak>
+  <div class="col-lg-12">
+    
+    <ol class="breadcrumb">
+               <li>
+                   <div class="item dropdown" uib-dropdown>
+                <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                  Spatial Entities
+                </a>
+                <ul class="dropdown-menu dropdown-menu-down">
+                  <li class="link"><a href ng-click="setTab(12)">Coastal Region</a></li>
+                  <li class="link"><a href ng-click="setTab(13)">Coastal District</a></li>
+                  <li class="link"><a href ng-click="setTab(14)">Fishing Village</a></li>
+                  <li class="link"><a href ng-click="setTab(15)">Landing Beach</a></li>
+                  <li class="link"><a href ng-click="setTab(16)">Place of Inspection</a></li>
+                  <li class="link"><a href ng-click="setTab(17)">Landing Site</a></li>
+                  <li class="link"><a href ng-click="setTab(18)">Fishing Zones</a></li>
+                  <li class="link"><a href ng-click="setTab(19)">Country Flag</a></li>
+
+                </ul>
+              </div></li>
+
+
+    <li ng-class="{active:isSet(1)}"><a href data-toggle="tab" ng-click="setTab(1)">Authority Inspection</a></li>
+    <li ng-class="{active:isSet(2)}"><a href data-toggle="tab" ng-click="setTab(2)">Construction Material</a></li>
+    <li ng-class="{active:isSet(3)}"><a href data-toggle="tab" ng-click="setTab(3)">Equipment</a></li>
+    <li ng-class="{active:isSet(4)}"><a href data-toggle="tab" ng-click="setTab(4)">Fish Company</a></li>
+    <li ng-class="{active:isSet(5)}"><a href data-toggle="tab" ng-click="setTab(5)">Target Species</a></li>
+    <li ng-class="{active:isSet(6)}"><a href data-toggle="tab" ng-click="setTab(6)">Type of Agreement</a></li>
+    <li ng-class="{active:isSet(7)}"><a href data-toggle="tab" ng-click="setTab(7)">Type of Engine</a></li>
+    <li ng-class="{active:isSet(8)}"><a href data-toggle="tab" ng-click="setTab(8)">Type of Fishing Gear</a></li>
+    <li ng-class="{active:isSet(9)}"><a href data-toggle="tab" ng-click="setTab(9)">Type of Storage</a></li>
+
+    <li ng-class="{active:isSet(10)}"><a href data-toggle="tab" ng-click="setTab(10)">Type of Tracking</a></li>
+
+    <li ng-class="{active:isSet(11)}"><a href data-toggle="tab" ng-click="setTab(11)">Type Of Vessel</a></li>
+    <li ng-class="{active:isSet(20)}"><a href data-toggle="tab" ng-click="setTab(20)">Cod end mesh size</a></li>
+    <li ng-class="{active:isSet(21)}"><a href data-toggle="tab" ng-click="setTab(21)">Crew Type</a></li>
+    <li ng-class="{active:isSet(22)}"><a href data-toggle="tab" ng-click="setTab(22)">Licensing Officer</a></li>
+    <li ng-class="{active:isSet(23)}"><a href data-toggle="tab" ng-click="setTab(23)">Inactive Reason</a></li>
+
+  </ol>
+   
+
+   <div class="tab" ng-show="isSet(1)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(1, 'New Authority Inspection')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="5%"><input type="checkbox" ng-model="compliancevessel_select" ng-click="selectAll()"></th>
+              	<th width="5%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-repeat="d in authorityList">
+              <td>
+              <input type="checkbox" data-checklist-model="checkList.vessels" checklist-value="d.Inspection_id">
+              </td>
+              <td><a href ng-click="editModal(d)"><i class="fa fa-edit"></i></a></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 1 -->
+
+
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+<div class="tab" ng-show="isSet(2)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(2, 'New Construction Material')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              	<th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in materialsList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 2 -->
+
+
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+<div class="tab" ng-show="isSet(3)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(3, 'Equipment')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              	<th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in equipmentList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 3 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+  <div class="tab" ng-show="isSet(4)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(4, 'Fish Company')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              	<th width="10%"> </th>
+                <th width="30%">Company ID</th>
+                <th width="60%">Company Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in companyList">
+              <td></td>
+              <td>{{d.Company_ID}}</td>
+              <td>{{d.Company_Name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(5)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(5, 'Target Species')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              	<th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in targetList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(6)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(6, 'Type of Agreement')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in agreementList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(7)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(7, 'Type of Engine')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in engineList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(8)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(8, 'Type of Fishing Gear')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in fishingList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+ <div class="tab" ng-show="isSet(9)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(9, 'Type of Storage')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in storageList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(10)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(10, 'Type of Tracking')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in trackingList">
+              <td></td>
+              <td>{{d.Change_id}}</td>
+              <td>{{d.Change_type}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(11)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(11, 'Type Of Vessel')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in vesselList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+ <div class="tab" ng-show="isSet(20)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(20, 'Cod end mesh size')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Mesh size</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in meshsizeList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+ <div class="tab" ng-show="isSet(21)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(21, 'Crew Type')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Crew Type</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in crewTypeList">
+              <td></td>
+              <td>{{d.id}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+ <div class="tab" ng-show="isSet(22)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(22, 'Licensing Officer')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Officer</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in licenseOfficerList">
+              <td></td>
+              <td>{{d.id}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+<div class="tab" ng-show="isSet(23)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(23, 'Reason')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Reason</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in reasonList">
+              <td></td>
+              <td>{{d.id}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+
+<div class="tab" ng-show="isSet(12)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(20, 'New Authority Inspection')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in regionList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+<div class="tab" ng-show="isSet(13)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="20%">Code</th>
+                <th width="40%">Name</th>
+                <th width="30%">Coastal Region</th>
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in districtList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.label}}</td>
+              <td>{{d.region}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+<div class="tab" ng-show="isSet(14)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="20%">Code</th>
+                <th width="40%">Name</th>
+                <th width="30%">Coastal District</th>
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in villageList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.label}}</td>
+              <td>{{d.district}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+<div class="tab" ng-show="isSet(15)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="20%">Code</th>
+                <th width="40%">Name</th>
+                <th width="30%">Fishing Village</th>
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in beachList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.label}}</td>
+              <td>{{d.village}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+<div class="tab" ng-show="isSet(16)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                <!--<th width="30%">Fishing Village</th> -->
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in inspectionList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+             <!-- <td>{{d.village}}</td> -->
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+<div class="tab" ng-show="isSet(17)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                <!--<th width="30%">Fishing Village</th> -->
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in ladingsiteList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+             <!-- <td>{{d.village}}</td> -->
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+<div class="tab" ng-show="isSet(18)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                <!--<th width="30%">Fishing Village</th> -->
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in fishingzoneList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+             <!-- <td>{{d.village}}</td> -->
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+<div class="tab" ng-show="isSet(19)">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Edit</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="10%"> </th>
+                <th width="30%">Code</th>
+                <th width="60%">Name</th>
+                <!--<th width="30%">Fishing Village</th> -->
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in flagList">
+              <td></td>
+              <td>{{d.code}}</td>
+              <td>{{d.name}}</td>
+             <!-- <td>{{d.village}}</td> -->
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div> <!-- end of set 4 -->
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+
+
+
+</div> <!-- col-12 -->
+</div> <!-- end -->
+
+
+<script type="text/ng-template" id="alertModal.html">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title"> {{headerText}}</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">{{firstLabel}}</label>
+              <input type="text" class="form-control" ng-model="temp.code" ng-readonly="temp_read"   >         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">{{secondLabel}}</label>
+              <input type="text" class="form-control" ng-model="temp.name" ng-readonly="temp_read" >         
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="saveTemp(number)">Save</button>
+      </div>
+</script>

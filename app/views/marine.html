@@ -1,0 +1,800 @@
+<div class="row main_text"  ng-init="init()">
+  <div class="col-lg-12">
+    
+    <ol class="breadcrumb">
+    <li ng-class="{active:isSet(1)}"><a href data-toggle="tab" ng-click="setTab(1)">Marine Canoes Manager</a></li>
+    <li ng-class="{active:isSet(2)}"><a href data-toggle="tab" ng-click="setTab(2)">Marine Canoes</a></li>
+    <li ng-class="{active:isSet(3)}"><a href data-toggle="tab" ng-click="setTab(3)">Marine Canoes License</a></li>
+    <li ng-class="{active:isSet(4)}"><a href data-toggle="tab" ng-click="setTab(4)">Marine Canoes Tracking</a></li>
+  </ol>
+   
+  </div>
+
+  <div class="tab" ng-show="isSet(1)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="new_canoe_manager()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteManager()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportManager()">Export Selected</a>&nbsp; |&nbsp; Page: {{currentVessel}} / {{numPagesManager}}<input type="text" class="form-control" Placeholder="Search" ng-model="canoe_manager_search">
+  </div>
+  <div class="panel-body">
+      <div class="row">
+                     <div class="pull-right">
+                    <uib-pagination ng-model="currentVessel" total-items="canoesManagerTotal" max-size="maxSize" ng-click="managerSelect()" num-pages="numPagesManager" boundary-links="true" class="pagination-sm" items-per-page="managernumPerPage"  ></uib-pagination>
+                     </div>
+                    <div class="pull-left">
+                        <div class="col-xs-12">
+                            <label for="search main_text" >Items per page:</label>
+                            <select class="form-control" ng-model="managernumPerPage" ng-change="managerPageChange()">
+                              <option value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+
+       <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="2%"><input type="checkbox" ng-model="manager_select" ng-click="managerSelectClick()"></th>
+                <th width="2%"> </th>
+                <th width="20%">Manager ID</th>
+                <th width="29%">Name of Manager</th>
+                <th width="20%">Nationality</th>
+                <th width="15%">Phone No</th>
+                <th width="10%">Canoes</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+
+             <tr ng-repeat="d in canoe_manager | orderBy:'d.End_date' | filter: canoe_manager_search" >
+              <td><input type="checkbox" data-checklist-model="checkList.managers" checklist-value="d"></td>
+              <td><a href ng-click="edit_canoe_manager(d)"><i class="fa fa-edit"></i></a></td>
+              <td>
+                <div class="item dropdown" uib-dropdown>
+                    <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                      {{d.Manager_id}}
+                    </a>
+                <ul class="dropdown-menu dropdown-menu-down" style="z-index: 1000">
+                  <li class="link"><a href ng-click="view_canoe_manager(d)">View</a></li>
+                  <li class="link"><a href ng-click="new_canoe_vessel(d)">New Canoe</a></li>
+                </ul>
+              </div>
+              </td>
+              <td>{{d.Name_Manager}}</td>
+              <td>{{d.Nationality}}</td>
+              <td>{{d.Phone_number}}</td>
+              <td><a href ng-click="showVessel(d)">{{d.totalFinal}}</a></td>
+             
+              </tr>
+            </tbody>
+          </table>
+          </div> 
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+
+
+    <div class="tab" ng-show="isSet(2)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="deleteCanoe()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportCanoe()">Export Selected</a>&nbsp; |&nbsp; Page: {{currentCanoe}} / {{numPagesVessel}} <input type="text" class="form-control" Placeholder="Search" ng-model="canoe_search">
+  </div>
+  <div class="panel-body">
+
+        <!--<div class="other-controller">
+          <div class="text-right">
+            <div class="col-xs-2">
+              <label for="search">Items per page:</label>
+              <select class="form-control" ng-model="canoenumPerPage">
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+              </select>
+            </div>
+           <uib-pagination ng-model="currentCanoe" total-items="canoesVesselTotal" max-size="maxSize" ng-click="canoeSelect()" num-pages="numPagesVessel" boundary-links="true" class="pagination-sm" items-per-page="canoenumPerPage" ></uib-pagination>
+          
+
+
+          </div>
+        </div> -->
+
+        <div class="row">
+                     <div class="pull-right">
+                    <uib-pagination ng-model="currentCanoe" total-items="canoesVesselTotal" max-size="maxSize" ng-click="canoeSelect()" num-pages="numPagesVessel" boundary-links="true" class="pagination-sm" items-per-page="canoenumPerPage" ></uib-pagination>
+                     </div>
+                    <div class="pull-left">
+                        <div class="col-xs-12">
+                            <label for="search main_text" >Items per page:</label>
+                            <select class="form-control" ng-model="canoenumPerPage">
+                              <option value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+  
+
+       <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="2%"><input type="checkbox" ng-model="canoe_select" ng-click="canoeSelectClick()"></th>
+                <th width="2%"> </th>
+                <th width="20%">Canoe ID</th>
+                <th width="15%">Manager ID</th>
+                <th width="15%">Landing Beach</th>
+                <th width="29%">Canoe Name</th>
+                <th width="15%">Registration Date</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <!--<tr dir-paginate="d in canoe_vessel | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+              -->
+              <!--<tr ng-repeat="d in canoe_vessel | imgThumb: (currentCanoe -1)* numPerPage | filter: canoe_search | orderBy:sortType:sortReverse | filter:q | limitTo: numPerPage | orderBy:'d.Date_registration'"> -->
+
+              <tr ng-repeat="d in canoe_vessel">
+
+
+
+              <td><input type="checkbox" data-checklist-model="checkList.canoes" checklist-value="d"></td>
+              <td><a href ng-click="edit_canoe_vessel(d)"><i class="fa fa-edit"></i></a></td>
+             
+              <td><a href ng-click="view_canoe_vessel(d)">{{d.Canoe_id}}</a></td>
+              <td>{{d.Manager_id}}</td>
+              <td>{{d.label}}</td>
+              <td>{{d.Current_canoe_name}}</td>
+              <td>{{d.Date_registration | date:'dd-MMM-yyyy'}}</td>
+             
+              </tr>
+            </tbody>
+          </table>
+          </div> 
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+
+    <div class="tab" ng-show="isSet(10)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="addNew()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Canoe ID</th>
+                <th>Manager ID</th>
+                <th>Landing Beach</th>
+                <th>Current Canoe Name</th>
+                <th>Registration Date</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in marine_vessel | orderBy:'Date_registration':true | limitTo:20 ">
+              <td>{{d.Canoe_id}}</td>
+              <td>{{d.Manager_id}}</td>
+              <td>{{d.label}}</td>
+              <td>{{d.Current_canoe_name}}</td>
+              <td>{{d.Date_registration | date:'mediumDate'}}</td>
+             
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+
+    <div class="tab" ng-show="isSet(3)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="addNew()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>License ID</th>
+                <th>Vessel ID</th>
+                <th>Type of Agreement</th>
+                <th>Starting Date</th>
+                <th>End Date</th>
+                <th>Date of Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              <td>RDVMPC001</td>
+              <td>238.103.133.37</td>
+              <td><span class="text-success"><i class="fa fa-check"></i></span></td>
+              <td>238.103.133.37</td>
+              <td>238.103.133.37</td>
+              <td>238.103.133.37</td>
+              </tr>
+              <tr>
+              <td>RDVMPC001</td>
+              <td>238.103.133.37</td>
+              <td><span class="text-success"><i class="fa fa-check"></i></span></td>
+              <td>238.103.133.37</td>
+              <td>238.103.133.37</td>
+              <td>238.103.133.37</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+
+    <div class="tab" ng-show="isSet(4)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="addNew()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Tracking ID</th>
+                <th>Vessel ID</th>
+                <th>Change Type</th>
+                <th>Change Date</th>
+                <th>Change Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              <td>RDVMPC001</td>
+              <td>238.103.133.37</td>
+              <td><span class="text-success"><i class="fa fa-check"></i></span></td>
+              <td>238.103.133.37</td>
+              <td>238.103.133.37</td>
+              </tr>
+              <tr>
+              <td>RDVMPC001</td>
+              <td>238.103.133.37</td>
+              <td><span class="text-success"><i class="fa fa-check"></i></span></td>
+              <td>238.103.133.37</td>
+              <td>238.103.133.37</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+</div>
+
+<script type="text/ng-template" id="canoe_manager.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{managertext}}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">Manager ID No</label>
+              <input type="text" class="form-control" ng-model="manager.Manager_id" ng-readonly="read_manager">         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Name of Manager</label>
+              <input type="text" class="form-control" ng-model="manager.Name_Manager" ng-readonly="read_manager">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Date of Birth</label>
+                 <p class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="manager.Date_birth" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" readonly />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+              </p> 
+             
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Sex of Manage</label>
+              <select class="form-control" ng-model="manager.Sex_Manager" ng-readonly="read_manager">
+                  <option>Male</option>
+                  <option>Female</option>
+              </select>         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Nationality</label>
+              <input type="text" class="form-control" ng-model="manager.Nationality" ng-readonly="read_manager">         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Occupation</label>
+              <input type="text" class="form-control" ng-model="manager.Occupation" ng-readonly="read_manager">         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Phone No</label>
+              <input type="text" class="form-control" ng-model="manager.Phone_number" ng-readonly="read_manager">         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Manager's Address</label>
+              <input type="text" class="form-control" ng-model="manager.Address_Manager" ng-readonly="read_manager">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">No of Canoes</label>
+              <input type="text" class="form-control" ng-model="manager.Number_canoes" ng-readonly="read_manager">         
+          </div>
+
+
+          <div ng-hide="read_manager">
+          <button type="button" class="btn btn-primary" ng-click="saveManager()">{{manager_button}}</button>
+          </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="new_canoe_vesselModal.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{canoetext}}</h4>
+        </div>
+        <div class="modal-body main_text">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+          <li ng-class="{active:isSelected(1)}"><a href ng-click="setSelected(1)" data-toggle="tab">Registration</a></li>
+          <li ng-class="{active:isSelected(2)}"><a href ng-click="setSelected(2)" data-toggle="tab">Dimensions</a></li>
+          <li ng-class="{active:isSelected(3)}"><a href ng-click="setSelected(3)" data-toggle="tab">Picture</a></li>
+        </ul>
+
+       <div class="tab-content">
+          <div ng-show="isSelected(1)">
+               <div class="tab-pane" id="personal">
+
+               <div class="form-group">
+                    <label class="control-label">Manager ID</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="canoe.Manager_id" readonly/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Canoe ID No</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="canoe.Canoe_id" ng-readonly="read_canoe"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Coastal Region</label>
+                    <select class="form-control" ng-model="canoe.Region" >
+                      <option ng-repeat="d in regionList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Coastal District</label>
+                    <select class="form-control" ng-model="canoe.District" >
+                      <option ng-repeat="d in districtList" value="{{d.code}}">{{d.label}}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Fishing Village</label>
+                     <select class="form-control" ng-model="canoe.Fishing_village" >
+                      <option ng-repeat="d in villageList" value="{{d.code}}">{{d.label}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Landing Beach</label>
+                    <select class="form-control" ng-model="canoe.Landing_beach" >
+                      <option ng-repeat="d in beachList" value={{d.code}}>{{d.label}}</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Current Canoe's Name</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="canoe.Current_canoe_name" ng-readonly="read_canoe" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Type of Ownerhsip</label>
+                    <!--<input type="text" name="firstname" class="form-control" ng-model="newvessel.Place_built" ng-readonly="read_vessel" /> -->
+                    <select class="form-control" ng-model="canoe.Type_ownership" ng-readonly="read_canoe">
+                      <option>Individual</option>
+                      <option>Family</option>
+                      <option>Joint Venture</option>
+                      <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Name of Canoe Owner</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Name_owner_representative" ng-readonly="read_canoe" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Name of Captain/Boatswain</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Name_captain_boatswain" ng-readonly="read_canoe" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Year Purchased</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Year_purchased" ng-readonly="read_canoe" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Year Built</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Year_built" ng-readonly="read_canoe" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Place Built</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Place_built" ng-readonly="read_canoe" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">First Year Fishing</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Year_fishing" ng-readonly="read_canoe" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Embossed</label>
+                    <!--<input type="text" name="firstname" class="form-control"  ng-model="canoe.Year_fishing" ng-readonly="read_canoe" /> -->
+                    <select class="form-control" ng-model="canoe.embossed">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Date of Registration</label>
+                    <!--<input type="text" name="firstname" class="form-control"  ng-model="canoe.Date_registration" ng-readonly="read_canoe" />-->
+
+                       <p class="input-group">
+               <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="canoe.Date_registration" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" readonly />
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </p>
+                </div>
+          </div>
+          </div>
+
+           <div ng-show="isSelected(2)">
+              <div class="tab-pane">
+                  <div class="form-group">
+                    <label class="control-label">Construction material</label>
+                    <select class="form-control" ng-model="canoe.Construct_material">
+                      <option ng-repeat="d in constructionList" value="{{d.code}}">{{d.name}} </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Length of overall(meters)</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="canoe.Length_overall"  ng-readonly="read_canoe" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Type of Storage</label>
+                    <select class="form-control" ng-model="canoe.Type_storage">
+                      <option>Ice</option>
+                      <option>No Ice</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Crew Number</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Crew_number" ng-readonly="read_canoe" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Motorized or Not</label>
+                    <select class="form-control" ng-model="canoe.Motorized">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Model of Engine</label>
+                    <select class="form-control" ng-model="canoe.Model_engine">
+                      <option ng-repeat="d in mainengineList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+
+
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Horse Power of Enginer</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="canoe.Horsepower_engine" ng-readonly="read_canoe" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">First Gear Type</label>
+                    <select class="form-control" ng-model="canoe.Gear_type1">
+                      <option ng-repeat="d in fishing_gearList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Second gear type</label>
+                     <select class="form-control" ng-model="canoe.Gear_type2">
+                      <option ng-repeat="d in fishing_gearList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Third gear type</label>
+                     <select class="form-control" ng-model="canoe.Gear_type3">
+                      <option ng-repeat="d in fishing_gearList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Equipment on board</label>
+
+                    <select name="multipleSelect" id="multipleSelect" ng-model="canoe.multipleSelect" multiple class="form-control">
+                    <option ng-repeat="d in equipmentList">{{d.label}} </option>
+    </select><br>
+    <tt>multipleSelect = {{canoe.multipleSelect}}</tt><br/>
+
+               
+                </div>
+              </div>
+          </div>
+
+          <div ng-show="isSelected(3)">
+            <div class="tab-pane" id="pics" >
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <img ngf-thumbnail="canoe.Photo_canoe" class="showImage">
+                    </div>
+                  </div>
+                <div class="col-md-6">
+                <br>
+                  <div class="row">
+                      <div><uib-progressbar value="loadAmount">{{loadAmount}} %</uib-progressbar></div>
+                  <!--<form> -->
+                    <div class="btn btn-primary" ngf-select="upload($file)" name="userPhoto" >Upload Photo</div>
+                  <!--</form> -->
+                  </div>     
+                </div>
+              </div> 
+            </div>
+          </div>
+
+          </div>
+
+
+      </div>
+       <div class="modal-footer" ng-hide="read_canoe">
+        <button type="button" class="btn btn-primary" ng-click="saveCanoe()">{{canoe_button}}</button>
+      </div> 
+        </div>
+    </script>
+
+
+
+    <script type="text/ng-template" id="deleteModal.html">
+        <div class="modal-header  btn-danger">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeDelete()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Delete</span>
+        </div>
+        <div class="modal-body">
+          {{deleteText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="delete()">Yes</button>
+          <button type="button" class="btn btn-danger" ng-click="nodelete()">No</button>
+      </div>
+    </script>
+    
+<script type="text/ng-template" id="alertModal.html">
+        <div class="modal-header btn-danger">
+        <!--<button type="button" class="close" data-dismiss="modal" ng-click="closeAlert()" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <span class="modal-title"><i class="fa fa-warning"></i> Alert</span>
+        </div>
+        <div class="modal-body">
+          {{alertText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="closeAlert()">Ok</button>
+      </div>
+</script>
+
+<!--<script type="text/ng-template" id="exportModal.html">
+        <div class="modal-header  btn-success">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeExport()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Export</span>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="10%"> &nbsp;</th>
+                  <th width="30%"> &nbsp;</th>
+                  <th width="60%"> &nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="excel"> </td>
+                <td><i class="fa fa-file-excel-o"></i></td>
+                <td> CSV</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="pdf"></td>
+                <td><i class="fa fa-file-pdf-o"></i> </td>
+                <td> PDF</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="word"></td>
+                <td><i class="fa fa-file-word-o"></i></td>
+                <td> Word</td>
+              </tr>
+              </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="export()">Export</button>
+      </div>
+    </script> -->
+
+  <script type="text/ng-template" id="exportModal.html">
+        <div class="modal-header  btn-success">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeExport()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Export</span>
+        </div>
+        <div class="modal-body">
+          <div class="list-group">
+          <button type="button" ng-csv="exportdata" filename="test.csv"  field-separator="," decimal-separator="." class="btn btn-block btn-success">CSV</button>
+          <button type="button" class="btn btn-block btn-success" ng-click="PDFprinter()">PDF</button>
+
+            </div>
+        </div>
+    </script>
+
+
+            <script type="text/ng-template" id="numberofVessel.html">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closestatus()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{statusHeader}}</h3>
+        </div>
+        <div class="modal-body main_text">
+          <ul class="nav nav-tabs nav-justified">
+          <li ng-class="{active:isSelected(1)}"><a href ng-click="setSelected(1)" data-toggle="tab">Canoe List</a></li>
+          <!--<li ng-class="{active:isSelected(2)}"><a href ng-click="setSelected(2)" data-toggle="tab">Canoe Replacement</a></li>
+          <li ng-class="{active:isSelected(3)}"><a href ng-click="setSelected(3)" data-toggle="tab">Replacement History</a></li> -->
+         
+        </ul>
+
+        <div class="tab-content">
+            <div ng-show="isSelected(1)">
+                <div class="table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                      
+                                <th width="40%">Canoe ID</th>
+                                <!--<th width="40%">Landing Beach</th> -->
+                                <th width="40%">Canoe Name</th>
+                                <th width="20%">Registration</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="n in selectedVessels">
+                                  <td>{{n.Canoe_id}}</td>
+                                  <!--<td>{{n.label}}</td> -->
+                                  <td>{{n.Current_canoe_name}}</td>
+                                  <td>{{n.Date_registration | date:'dd-MMM-yyyy'}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                </div>
+            </div>
+            <div ng-show="isSelected(2)">
+            <br>
+              <div class="error_div" ng-show="replace_error"> Old Vessel and New Vessel are the same, please change and continue </div>
+              <div class="form-group">
+                  <label class="control-label">Old Canoe</label>
+                  <input type="hidden" ng-model="company">
+                  <select class="form-control" ng-model="replacement.old_vessel" ng-change="replace_error=false">
+                    <option ng-repeat="a in allVessels" value="{{a.Canoe_id}}">{{a.Current_canoe_name}} </option>
+                  </select>    
+              </div>
+              <div class="form-group">
+                  <label class="control-label">New Canoe</label>
+                  <select class="form-control" ng-model="replacement.new_vessel" ng-change="replace_error=false">
+                    <option  ng-repeat="b in selectedVessels" value="{{b.Canoe_id}}">{{b.Current_canoe_name}} </option>
+                  </select>         
+              </div>
+               <div class="form-group">
+               <label class="control-label">Date</label>
+                  <p class="input-group">
+               <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="replacement.date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" readonly />
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </p>
+               </div>
+
+
+               <div class="form-group">
+                  <label class="control-label">Notes</label>
+                  <textarea ng-model="replacement.notes" class="form-control"></textarea>
+                </div>
+              <button type="button" class="btn btn-primary" ng-click="replaceVessel()">Replace</button>
+           
+        </div>
+
+           <div ng-show="isSelected(3)">
+                <div class="table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="20%">Date</th>
+                                <th width="40%">Old Vessel</th>
+                                <th width="40%">New Vessel</th>
+                                <!--<th width="20%">Registration</th> -->
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="n in replaceList">
+                                  <td>{{n.date | date:'dd-MMM-yyyy'}}</td>
+                                  <td>{{n.old_vessel}}</td>
+                                  <td>{{n.new_vessel}}</td>
+                                 <!-- <td>{{n.Date_registration | date:'dd-MMM-yyyy'}}</td> -->
+                              </tr>
+                            </tbody>
+                          </table>
+                </div>
+            </div>
+
+
+        </div>
+      </div>          
+    </script>
+  
+
+	

@@ -1,0 +1,46 @@
+<div class="signin">
+ <div class="row">
+    <!-- <div class="signinpanel"> -->
+        
+            <div class="col-lg-12">
+
+                <h1 style="text-align: center"> Active Semi Industrial Vessel License</h1>
+                <hr>
+                <div class="panel panel-default">
+          <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                
+                
+                <th width="15%"><a href ng-click="sortType='Company_id' ; sortReverse = !sortReverse">Region 
+                 </a></th>
+                <th width="20%"><a href ng-click="sortType='Company_name'; sortReverse = !sortReverse">Name 
+                </a></th>
+                <th width="19%"><a href ng-click="sortType='Year_establishment'; sortReverse = !sortReverse">Registration No
+                </a></th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <!--<tr ng-repeat="d in industrial_company | filter: vessel_company_search"> -->
+              <tr ng-repeat="d in semiList">
+              <td><a href ng-click="view_vessel_company(d)">{{d.name}}</a></td>
+              <td>{{d.Current_vessel_name}}</td>
+              
+              <td>{{d.Vessel_id}}</td>
+            
+              </tr>
+              
+            </tbody>
+            </table>
+            </div>
+            
+        </div>
+        </div>
+
+   </div>
+</div>
+
+

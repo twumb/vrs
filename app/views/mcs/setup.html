@@ -1,0 +1,154 @@
+<div class="row main_text">
+  <div class="col-lg-12">
+    
+    <ol class="breadcrumb">
+    <li ng-class="{active:isSet(1)}"><a href data-toggle="tab" ng-click="setTab(1)">Offense Type</a></li>
+    <li ng-class="{active:isSet(2)}"><a href data-toggle="tab" ng-click="setTab(2)">Expected Sanction</a></li>
+    <li ng-class="{active:isSet(3)}"><a href data-toggle="tab" ng-click="setTab(3)">Officers</a></li>
+  </ol>
+   
+  </div>
+    <div class="tab" ng-show="isSet(1)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(1, 'Offense Type')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="5%"><input type="checkbox" ng-model="compliancevessel_select" ng-click="selectAll()"></th>
+              	<th width="5%"> </th>
+                
+                <th width="95%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-repeat="d in offense_typesList">
+              <td>
+              <input type="checkbox" data-checklist-model="checkList.vessels" checklist-value="d.Inspection_id">
+              </td>
+              <td><a href ng-click="editModal(d)"><i class="fa fa-edit"></i></a></td>
+              
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 1 -->
+
+
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+
+  <div class="tab" ng-show="isSet(2)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(2, 'Expected Sanction')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="5%"><input type="checkbox" ng-model="compliancevessel_select" ng-click="selectAll()"></th>
+              	<th width="5%"> </th>
+               
+                <th width="95%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-repeat="d in sanctionsList">
+              <td>
+              <input type="checkbox" data-checklist-model="checkList.vessels" checklist-value="d.Inspection_id">
+              </td>
+              <td><a href ng-click="editModal(d)"><i class="fa fa-edit"></i></a></td>
+              
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 1 -->
+
+
+  </div> <!-- col-12 -->
+</div> <!-- end -->  <div class="tab" ng-show="isSet(3)">
+    <div class="row">
+  		<div class="col-lg-12">
+  			  <div class="panel">
+  <div class="panel-heading green_">
+     <a href ng-click="showModal(3, 'Officers')">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="5%"><input type="checkbox" ng-model="compliancevessel_select" ng-click="selectAll()"></th>
+              	<th width="5%"> </th>
+                <th width="95%">Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-repeat="d in mcsofficersList">
+              <td>
+              <input type="checkbox" data-checklist-model="checkList.vessels" checklist-value="d.Inspection_id">
+              </td>
+              <td><a href ng-click="editModal(d)"><i class="fa fa-edit"></i></a></td>
+              <td>{{d.name}}</td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  		</div>
+  	</div>
+  </div> <!-- end of set 1 -->
+
+
+  </div> <!-- col-12 -->
+</div> <!-- end -->
+ </div>
+
+
+ <script type="text/ng-template" id="alertModal.html">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title"> {{headerText}}</span>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" ng-model="temp.name" ng-readonly="temp_read" >         
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="saveTemp(number)">Save</button>
+      </div>
+</script>

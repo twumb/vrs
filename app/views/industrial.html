@@ -1,0 +1,1275 @@
+<div class="row main_text" ng-init="init()">
+      <div class="col-lg-12">
+      	
+      <ol class="breadcrumb">
+            <li ng-class="{active:isSet(1)}"><a href data-toggle="tab" ng-click="setTab(1)">Vessel Company 
+        </a></li>
+            <li ng-class="{active:isSet(2)}"><a href data-toggle="tab" ng-click="setTab(2)">Industrial Vessel
+        </a></li>
+            <li ng-class="{active:isSet(3)}"><a href data-toggle="tab" ng-click="setTab(3)">Industrial Vessel License</a></li>
+            <li ng-class="{active:isSet(4)}"><a href data-toggle="tab" ng-click="setTab(4)">Industrial Vessel Tracking</a></li>
+    	</ol>
+    	
+      </div>
+
+  <div class="tab " ng-show="isSet(1)">
+    <!--<div class="row"> -->
+  <div class="col-lg-12">
+
+  <div class="panel panel-danger">
+  <div class="panel-heading">
+     <a href ng-click="new_vessel_company()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteCompany()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportCompany()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search" ng-model="vessel_company_search">
+  </div>
+  <div class="panel-body">
+
+        <div class="other-controller row">
+          <div class="text-right">
+            <div class="col-xs-4">
+              <label for="search">Items per page:</label>
+                
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+              <!--<select class="form-control" ng-model="ves.pageSize">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select> -->
+            </div>
+         <!-- <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html"></dir-pagination-controls> -->
+
+          <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+
+
+          </div>
+        </div>
+      
+
+
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="2%"><input type="checkbox" ng-model="company_select" ng-click="companySelect()"></th>
+                <th width="2%"></th>
+                <th width="15%"><a href ng-click="sortType='Company_id' ; sortReverse = !sortReverse">Company ID 
+                <span ng-show="sortType == 'Company_id' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'Company_id' && sortReverse" class="fa fa-caret-up"></span> </a></th>
+                <th width="20%"><a href ng-click="sortType='Company_name'; sortReverse = !sortReverse">Company Name 
+                <span ng-show="sortType == 'Company_name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'Company_name' && sortReverse" class="fa fa-caret-up"></span></a></th>
+                <th width="19%"><a href ng-click="sortType='Year_establishment'; sortReverse = !sortReverse">Year of Establishment 
+                <span ng-show="sortType == 'Year_establishment' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'Year_establishment' && sortReverse" class="fa fa-caret-up"></span></a></th>
+                <th width="25%"><a href ng-click="sortType='Name_director' ; sortReverse = !sortReverse">Name of Managing Director <span ng-show="sortType == 'Name_director' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'Name_director' && sortReverse" class="fa fa-caret-up"></span></a></th>
+                <th width="15%"><a href ng-click="sortType='Vessel_count' ; sortReverse = !sortReverse">Number of Vessels <span ng-show="sortType == 'Vessel_count' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'Vessel_count' && sortReverse" class="fa fa-caret-up"></span></a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--<tr ng-repeat="d in industrial_company | filter: vessel_company_search"> -->
+              <!--<tr dir-paginate="d in industrial_company | orderBy:sortType:sortReverse | filter: vessel_company_search | filter:q | itemsPerPage: pageSize" current-page="currentPage"> -->
+              <!--<tr dir-paginate="d in industrial_company| filter: vessel_company_search | filter:q | itemsPerPage: pageSize" current-page="currentPage">-->
+
+              <tr ng-repeat="row in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+
+
+              <td><input type="checkbox" data-checklist-model="checkList.companies" data-checklist-value="d"></td>
+              <td><a href ng-click="edit_vessel_company(d)"><i class="fa fa-edit"></i></a></td>
+              <td>
+                  <div class="item dropdown" uib-dropdown>
+                    <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                      {{d.Company_id}}
+                    </a>
+                <ul class="dropdown-menu dropdown-menu-down" style="z-index: 1000">
+                  <li class="link"><a href ng-click="view_vessel_company(d)">View</a></li>
+                  <li class="link"><a href ng-click="new_industrial_vessel(d)">New Vessel</a></li>
+                  <!--<li class="link"><a href ng-click="status(d)">Status</a></li>
+                  <li class="link"><a href ng-click="license(d)">License</a></li> -->
+
+                </ul>
+              </div>
+
+
+              <!--<a href ng-click="view_vessel_company(d)">
+
+              {{d.Company_id}}</a>   --></td>
+              <td>{{d.Company_name}}</td>
+              <td>{{d.Year_establishment | date:'dd-MMM-yyyy'}}</td>
+              <td>{{d.Name_director}}</td>
+              <td><a href ng-click="showVessel(d)">{{d.vess_count}}</a></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+<!--</div> --> <!-- end of row -->
+  </div>
+
+
+    <div class="tab" ng-show="isSet(2)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel panel-danger">
+  <div class="panel-heading">
+     <!--<a href ng-click="new_industrial_vessel()">Add New</a> &nbsp;|&nbsp; --><a href ng-click="deleteVessel()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportVessel()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search" ng-model="vessel_search">
+  </div>
+  <div class="panel-body">
+
+       <div class="other-controller row">
+          <div class="text-right">
+            <div class="col-xs-4">
+              <label for="search">Items per page:</label>
+              <!--<input type="number" min="1" max="100" class="form-control" ng-model="pageSize"> -->
+              <select class="form-control" ng-model="pageSize">
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+              </select>
+            </div>
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>
+
+
+
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              <th width="2%"><input type="checkbox" ng-model="vessel_select" ng-click="vesselSelect()"></th>
+                <th width="2%"> </th>
+                <th width="15%"><a href ng-click="sortVessel='V' ; sortVesselReverse = !sortVesselReverse"> Vessel ID
+                <span ng-show="sortVessel == 'V' && !sortVesselReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortVessel == 'V' && sortVesselReverse" class="fa fa-caret-up"></span> </a>
+                </th>
+                <th width="15%"><a href ng-click="sortVessel='Company_id' ; sortVesselReverse = !sortVesselReverse"> Company ID
+                <span ng-show="sortVessel == 'Company_id' && !sortVesselReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortVessel == 'Company_id' && sortVesselReverse" class="fa fa-caret-up"></span> </a></th>
+                <th width="25%"><a href ng-click="sortVessel='Current_vessel_name' ; sortVesselReverse = !sortVesselReverse"> Current Vessel's Name
+                <span ng-show="sortVessel == 'Current_vessel_name' && !sortVesselReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortVessel == 'Current_vessel_name' && sortVesselReverse" class="fa fa-caret-up"></span> </a></th>
+                <th width="10%"> <a href ng-click="sortVessel='Name' ; sortVesselReverse = !sortVesselReverse"> Flag Origin
+                <span ng-show="sortVessel == 'Name' && !sortVesselReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortVessel == 'Name' && sortVesselReverse" class="fa fa-caret-up"></span> </a></th>
+                <th width="19%"> <a href ng-click="sortVessel='Date_registration' ; sortVesselReverse = !sortVesselReverse"> Date Registration
+                <span ng-show="sortVessel == 'Date_registration' && !sortVesselReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortVessel == 'Date_registration' && sortVesselReverse" class="fa fa-caret-up"></span> </a></th>
+                <th width="10%"> <a href ng-click="sortVessel='count' ; sortVesselReverse = !sortVesselReverse">Licenses
+                <span ng-show="sortVessel == 'count' && !sortVesselReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortVessel == 'count' && sortVesselReverse" class="fa fa-caret-up"></span> </a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr dir-paginate="a in industrial_vessel | orderBy:sortVessel:sortVesselReverse | filter: vessel_search | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
+               <td><input type="checkbox" data-checklist-model="checkList.vessels" checklist-value="d.V"></td>
+              <td><a href ng-click="vessel_edit(d)"><i class="fa fa-edit"></i></a></td>
+              <td>
+
+              
+                   <div class="item dropdown" uib-dropdown>
+                <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                  {{a.V}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-down" style="z-index: 1000">
+                  <li class="link"><a href ng-click="vessel_view(d)">View</a></li>
+                  <li class="link"><a href ng-click="crew(d)">Crew Management</a></li>
+                  <li class="link"><a href ng-click="status(d)">Status</a></li>
+                  <li class="link"><a href ng-click="license(d)">License</a></li>
+
+                </ul>
+              </div>
+              <!-- <a href ng-click="vessel_view(d)">{{d.V}}</a> -->
+
+              </td>
+              <td>{{a.Company_id}}</td>
+              <td>{{a.Current_vessel_name}}</td>
+              <td>{{a.Name}}</td>
+              <td>{{a.Date_registration | date:'dd-MMM-yyyy'}}</td>
+              <td><a href ng-click="showLicense(d)">{{a.count}}</a></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+
+    <div class="tab" ng-show="isSet(3)">
+    <div class="row">
+  <div class="col-lg-12">
+
+  <div class="panel panel-danger">
+  <div class="panel-heading">
+     <a href ng-click="new_industrial_license()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteLicense()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportLicense()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search" ng-model="license_search">
+  </div>
+  <div class="panel-body">
+
+       <div class="other-controller row">
+          <div class="text-right">
+            <div class="col-xs-4">
+              <label for="search">Items per page:</label>
+              <!--<input type="number" min="1" max="100" class="form-control" ng-model="pageSize"> -->
+              <select class="form-control" ng-model="pageSize">
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+              </select>
+            </div>
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>
+
+
+
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="2%"><input type="checkbox" ng-model="license_select" ng-click="licenseSelect()"></th>
+                <th width="3%"> </th>
+                <th width="15%"><a href ng-click="sortLicense='License_id' ; sortLicenseReverse = !sortLicenseReverse">License ID
+                <span ng-show="sortLicense == 'License_id' && !sortLicenseReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortLicense == 'License_id' && sortLicenseReverse" class="fa fa-caret-up"></span></a></th>
+                <th width="15%"><a href ng-click="sortLicense='Vessel_id' ; sortLicenseReverse = !sortLicenseReverse">Vessel ID
+                <span ng-show="sortLicense == 'Vessel_id' && !sortLicenseReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortLicense == 'Vessel_id' && sortLicenseReverse" class="fa fa-caret-up"></span>
+                </a></th>
+                <th width="18%"><a href ng-click="sortLicense='Name' ; sortLicenseReverse = !sortLicenseReverse">Agreement Type
+                  <span ng-show="sortLicense == 'Name' && !sortLicenseReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortLicense == 'Name' && sortLicenseReverse" class="fa fa-caret-up"></span>
+                </a></th>
+                <th width="15%"><a href ng-click="sortLicense='Starting_date' ; sortLicenseReverse = !sortLicenseReverse">Start Date
+                <span ng-show="sortLicense == 'Starting_date' && !sortLicenseReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortLicense == 'Starting_date' && sortLicenseReverse" class="fa fa-caret-up"></span>
+
+                </a></th>
+                <th width="15%"><a href ng-click="sortLicense='End_date' ; sortLicenseReverse = !sortLicenseReverse">End Date
+                <span ng-show="sortLicense == 'End_date' && !sortLicenseReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortLicense == 'End_date' && sortLicenseReverse" class="fa fa-caret-up"></span>
+
+                </a></th>
+                <th width="15%"><a href ng-click="sortLicense='Date_issue' ; sortLicenseReverse = !sortLicenseReverse">Date of Issue
+                <span ng-show="sortLicense == 'Date_issue' && !sortLicenseReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortLicense == 'Date_issue' && sortLicenseReverse" class="fa fa-caret-up"></span>
+
+
+                </a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  dir-paginate="d in industrial_license | filter:license_search | orderBy: 'Starting_date':true| orderBy:sortLicense:sortLicenseReverse | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+              <td><input type="checkbox" data-checklist-model="checkList.licenses" checklist-value="d.License_id"></td>
+              <td><a href ng-click="license_edit(d)"><i class="fa fa-edit"></i></a> </td>
+              <td><a href ng-click="license_view(d)">{{d.License_id}}</a></td>
+              <td>{{d.Vessel_id}}</td>
+              <td>{{d.Name}}</td>
+              <td>{{d.Starting_date | date:'dd-MMM-yyyy'}}</td>
+              <td>{{d.End_date | date:'dd-MMM-yyyy'}}</td>
+              <td>{{d.Date_issue | date:'dd-MMM-yyyy'}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+
+    <div class="tab" ng-show="isSet(4)">
+    <div class="row">
+  <div class="col-lg-12">
+
+
+
+
+
+
+
+
+
+
+  <div class="panel panel-danger">
+  <div class="panel-heading">
+     <a href ng-click="new_industrial_tracking()">Add New</a> &nbsp;|&nbsp; <a href ng-click="deleteSelected()">Delete Selected</a> &nbsp;|&nbsp; <a href ng-click="exportSelected()">Export Selected</a>&nbsp; &nbsp; <input type="text" class="form-control" Placeholder="Search">
+  </div>
+  <div class="panel-body">
+
+  
+
+
+      <!-- <div class="other-controller row">
+          <div class="text-right">
+            <div class="col-xs-4">
+              <label for="search">Items per page:</label>
+              <select class="form-control" ng-model="pageSize">
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+              </select>
+            </div>
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>  -->
+
+
+     <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                
+                <th>Tracking ID</th>
+                <th>Vessel ID</th>
+                <th>Change Type</th>
+                <th>Change Date</th>
+                <th>Change Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in industrial_tracking">
+              <td> <input type='checkbox' checklist-model='g' checklist-value='d'> {{d.Tracking_id}}</td>
+              <td>{{d.Vessel_id}}</td>
+              <td>{{d.V}}</td>
+              <td>{{d.Change_date | date:'dd-MMM-yyyy'}}</td>
+              <td>{{d.Change_description}}</td>
+              
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+
+  </div>
+
+</div>
+  </div>
+
+</div>
+
+
+
+
+
+ <script type="text/ng-template" id="vessel_companyModal.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{heading_text}}</h3>
+        </div>
+        
+        <div class="modal-body main_text typeahead-demo ">
+         <form name="companyForm" ng-submit="saveCompany()" novalidate>
+          <div class="form-group" ng-class="{ 'has-error' : companyForm.Company_name.$invalid && !companyForm.Company_name.$pristine }">
+
+              <label class="control-label">Company Name</label>
+              <input type="text" class="form-control" name="Company_name" ng-model="newcompany.Company_name" ng-readonly="read_" required> 
+              <p ng-show="companyForm.Company_name.$invalid && !companyForm.Company_name.$pristine" class="help-block">Company Name is required</p>     
+          </div>
+
+          <div class="form-group">
+
+              <label class="control-label">Company ID</label>
+              <!--<input type="text" class="form-control" ng-model="newcompany.Company_id" ng-readonly="read_"> -->
+
+               <input type="text" ng-model="newcompany.Company_id" uib-typeahead="state as state.Company_id for state in industrial_company | filter:{Company_id:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
+
+
+          </div>
+
+          
+          <div class="form-group">
+              <label class="control-label">Company Address</label>
+              <input type="text" class="form-control" ng-model="newcompany.Company_address" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Phone Number</label>
+              <input type="text" class="form-control" ng-model="newcompany.Company_phone_number" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Business Registration Number</label>
+              <input type="text" class="form-control" ng-model="newcompany.Bus_reg_number" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Year of Establishment</label>
+              <input type="text" class="form-control" ng-model="newcompany.Year_establishment" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Name of Managing Director</label>
+              <input type="text" class="form-control" ng-model="newcompany.Name_director" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Gender of Managing Director</label>
+              <!--<input type="text" class="form-control" ng-model="newcompany.gender">  -->   
+              <div ng-show="!read_">
+              <select class="form-control" ng-model="newcompany.Sex_director">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              </div>
+              <div ng-show="read_">  
+                <input type="text" class="form-control" readonly ng-model="newcompany.Sex_director"> 
+               </div>  
+
+
+          </div>
+          <div class="form-group">
+              <label class="control-label">Nationality of Director</label>
+              <input type="text" class="form-control" ng-model="newcompany.Nationality_director" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Email Address</label>
+              <input type="text" class="form-control" ng-model="newcompany.Email_address" ng-readonly="read_">         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Number of Share Holders</label>
+              <input type="text" class="form-control" ng-model="newcompany.Number_share_horders" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Name of Share Holder 1</label>
+              <input type="text" class="form-control" ng-model="newcompany.Name_share_horder_1" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Percentage Share of Share Holder 1</label>
+              <input type="text" class="form-control" ng-model="newcompany.Percent_share_horder_1" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Name of Share Holder 2</label>
+              <input type="text" class="form-control" ng-model="newcompany.Name_share_horder_2" ng-readonly="read_">         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Percentage Share of Share Holder 2</label>
+              <input type="text" class="form-control" ng-model="newcompany.Percent_share_horder_2" ng-readonly="read_">         
+          </div>
+          <!--<div class="form-group">
+              <label class="control-label">Number of Vessels</label>
+              <input type="text" class="form-control" ng-model="newcompany.Number_vessels" ng-readonly="read_">         
+          </div> -->
+        
+          <div ng-hide="read_">
+
+
+
+            <!--<button type="button" class="btn btn-primary" ng-click="saveCompany()">{{company_button}}</button> -->
+          
+            <button type="submit" class="btn btn-primary" ng-disabled="companyForm.$invalid">{{company_button}}</button>
+
+          </div>
+      </div>
+      </form>
+    </script>
+	
+
+  
+  <script type="text/ng-template" id="newIndustrial.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" ng-click="new_industrial_close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{vessel_text}}</h4>
+        </div>
+        <div class="modal-body main_text">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+          <li ng-class="{active:isSelected(1)}"><a href ng-click="setSelected(1)" data-toggle="tab"><strong>Vessel</strong></a></li>
+          <!--<li ng-class="{active:isSelected(2)}"><a href ng-click="setSelected(2)" data-toggle="tab"><strong>Captain</strong></a></li> -->
+          <li ng-class="{active:isSelected(3)}"><a href ng-click="setSelected(3)" data-toggle="tab"><strong>Specification</strong></a></li>
+        </ul>
+
+       <div class="tab-content">
+          <div ng-show="isSelected(1)">
+               <div class="tab-pane" id="personal">
+
+                <div class="form-group">
+                    <label class="control-label">Company ID</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Company_id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Vessel ID</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Vessel_id" ng-readonly="read_vessel"/>
+                </div>
+                
+                
+
+                <div class="form-group">
+                    <label class="control-label">Current Vessel's Name</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Current_vessel_name" ng-readonly="read_vessel"  />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Former Vessel's Name</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Former_vessel_name"  ng-readonly="read_vessel" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Flag Origin</label>
+                    
+                    <select class="form-control" ng-model="newvessel.Flag_origin" >
+                      <option ng-repeat="d in flagList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Flag Registration No</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Flag_reg_number"  ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Home Port</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Home_port"  ng-readonly="read_vessel"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Year Built</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Year_built" ng-readonly="read_vessel"  />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Year Purchase</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Year_purchase" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Place build</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Place_built" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Maiden Voyage in Ghana</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="newvessel.Maiden_voyage_GH" ng-readonly="read_vessel" />
+                </div>
+                
+          </div>
+          </div>
+
+          <div ng-show="isSelected(2)">
+          <div class="tab-pane" >
+                <div class="form-group">
+                    <label class="control-label">Name of Captain</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Name_captain" ng-readonly="read_vessel" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Address</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Address_captain" ng-readonly="read_vessel" />
+                </div>
+
+                 <div class="form-group">
+                    <label class="control-label">Nationality</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Nationality_captain" ng-readonly="read_vessel"  />
+                </div>
+
+
+          </div>
+          </div>
+           <div ng-show="isSelected(3)">
+              <div class="tab-pane">
+                  <div class="form-group">
+                    <label class="control-label">Construction material</label>
+                    
+                    <select class="form-control" ng-model="newvessel.Construct_material">
+                      <option ng-repeat="d in constructionList" value="{{d.code}}">{{d.name}} </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Gross Tonnage</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Gross_tonnage"  ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Net Tonnage</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Net_tonnage"  ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Length overall (meters)</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="newvessel.Length_overall" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Breadth (meters)</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Breadth" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Draft (meters)</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Draft"  ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Max depth (meters)</label>
+                    <input type="text" name="firstname" class="form-control"  ng-model="newvessel.Max_depth" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Max speed (knots)</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Max_speed" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Color of hull</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Color_hull" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Number of cabins</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Number_cabins"  ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Number of Beds</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Number_of_beds" ng-readonly="read_vessel"  />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Number of Ghanaian Crew</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Ghanaian_crew" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Number of Foreign Crew</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Foreign_crew" ng-readonly="read_vessel"  />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Freezing capacity (tons)</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Freezing_capacity" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Freezing</label>
+                    <select class="form-control" ng-model="newvessel.Type_freezing">
+                      <option ng-repeat="d in freezingList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Type Main Engine</label>
+                    <select class="form-control" ng-model="newvessel.Type_main_engine">
+                      <option ng-repeat="d in mainengineList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label class="control-label">HP Main Engine</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.HP_main_engine" ng-readonly="read_vessel" />
+                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Serial No of main Enginer</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Serial_number" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Number Auxiliary Engine</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Number_auxiliary_engine" ng-readonly="read_vessel" />
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Type of auxiliary engines</label>
+                    
+                    <select class="form-control" ng-model="newvessel.Type_auxiliary_engine">
+                      <option ng-repeat="d in mainengineList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+
+
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">HP Auxiliary Engine</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.HP_auxiliary_engine"  ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Type of fishing gear</label>
+                  
+                    <select class="form-control" ng-model="newvessel.Type_fishing_gear">
+                      <option ng-repeat="d in fishing_gearList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Navigation and Fishing Aids</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Nav_fish_aids" ng-readonly="read_vessel"  />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">VMS ID No.</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.VMS_id" ng-readonly="read_vessel" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Vessel's IMO number</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Vessel_imo_number" ng-readonly="read_vessel"  />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Radio Signal</label>
+                    <input type="text" name="firstname" class="form-control" ng-model="newvessel.Radio_signal" ng-readonly="read_vessel" />
+                </div>
+              </div>
+          </div>
+          </div>
+
+
+      </div>
+       <div class="modal-footer" ng-hide="read_vessel">
+        <button type="button" class="btn btn-primary" ng-click="saveVessel()">Save</button>
+      </div> 
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="newLicense.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="license_close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{licensetext}}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">License ID No</label>
+              <input type="text" class="form-control" ng-model="newlicense.License_id" ng-readonly="read_license"   >         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Vessel ID No</label>
+              <input type="text" class="form-control" ng-model="newlicense.Vessel_id" readonly >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Vessel Insurance ID No</label>
+              <input type="text" class="form-control" ng-model="newlicense.Insurance_vessel_id" ng-readonly="read_license" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Crew Insurance ID No</label>
+              <input type="text" class="form-control" ng-model="newlicense.Insurance_crew_id" ng-readonly="read_license" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Tax Clearance ID No</label>
+              <input type="text" class="form-control" ng-model="newlicense.Tax_clearance_id" ng-readonly="read_license" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Safety Certificate ID No</label>
+              <input type="text" class="form-control" ng-model="newlicense.Safety_certificate_id" ng-readonly="read_license" >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Tye of Vessel</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.Type_of_vessel" ng-readonly="read_license" >  -->
+              <select class="form-control" ng-model="newlicense.Type_of_vessel">
+                  <option ng-repeat="d in vesselTypeList">{{d.Name}}</option>
+              </select>       
+          </div>
+          <div class="form-group">
+              <label class="control-label">Type of Agreement </label>
+              <div ng-show="!read_license">
+              <select class="form-control" ng-model="newlicense.Type_agreement" ng-readonly="read_license" >
+                <option ng-repeat="d in agreement" value="{{d.code}}">{{d.name}}</option>
+
+              </select>  
+              </div>
+
+
+              <div ng-show="read_license">  
+                <input type="text" class="form-control" readonly ng-model="newlicense.Type_agreement"> 
+               </div>         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Renewal License</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.Renewal_license" ng-readonly="read_license" > -->  
+              <div ng-show="!read_license">
+                  <select class="form-control" ng-model="newlicense.Renewal_license">
+                    <option>No</option>
+                    <option>Yes</option>
+                  </select> 
+              </div>
+              <div ng-show="read_license">
+                  <input type="text" class="form-control" ng-model="newlicense.Renewal_license" readonly>   
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="control-label">Third Party License</label>
+               <div ng-show="!read_license">
+              <select class="form-control" ng-model="newlicense.Third_part_license">
+                <option>No</option>
+                <option>Yes</option>
+              </select>   
+              </div>
+
+              <div ng-show="read_license">
+                <input type="text"  class="form-control" readonly ng-model="newlicense.Third_part_license">
+              </div>      
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Target Species</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.Target_species" ng-readonly="read_license" > -->
+               <div ng-show="!read_license">
+              <select class="form-control" ng-model="newlicense.Target_species">
+                <option ng-repeat="d in tagetSpeciesList">{{d.name}}</option>
+                
+              </select>  
+              </div>
+               <div ng-show="read_license">
+                <input type="text" readonly ng-model="newlicense.Target_species" class="form-control">
+               </div>
+
+
+          </div>
+          <div class="form-group">
+              <label class="control-label">Authorized Zone</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.Authorized_zone" ng-readonly="read_license" > --> 
+
+              <div ng-show="!read_license">
+                  <select class="form-control" ng-model="newlicense.Authorized_zone">
+                    <option ng-repeat="d in zoneList">{{d.name}}</option>
+                  </select>    
+              </div>
+               <div ng-show="read_license">
+                  <input type="text" class="form-control" ng-model="newlicense.Authorized_zone" readonly>
+               </div>
+          </div>
+          <div class="form-group">
+              <label class="control-label">Code end mesh size</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.Cod_mesh_size" ng-readonly="read_license" > -->  
+              <select class="form-control" ng-model="newlicense.Cod_mesh_size">
+                  <option ng-repeat="d in meshsizeList">{{d.name}}</option>
+              </select>       
+          </div>
+          <div class="form-group">
+              <label class="control-label">Starting Validity Date</label>
+               <div ng-show="!read_license">
+              <p class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newlicense.Starting_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-readonly="read_license" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+              </p> 
+              </div>
+               <div ng-show="read_license">  
+                <input type="text" class="form-control" readonly ng-model="newlicense.Starting_date | date:'dd-MMM-yyyy'"> 
+               </div>  
+
+          </div>
+          <div class="form-group">
+              <label class="control-label">End Validity Date</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.End_date" ng-readonly="read_license" >  -->
+              <div ng-show="!read_license">
+              <p class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newlicense.End_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-readonly="read_license" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p> 
+                </div>
+                <div ng-show="read_license">  
+                <input type="text" class="form-control" readonly ng-model="newlicense.End_date | date:'dd-MMM-yyyy'"> 
+               </div>       
+
+
+          </div>
+          <div class="form-group">
+              <label class="control-label">Date of Issue</label>
+              <!--<input type="text" class="form-control" ng-model="newlicense.Date_issue" ng-readonly="read_license" >  -->
+              <div ng-show="!read_license">
+              <p class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="{{format}}"  ng-model="newlicense.Date_issue" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  ng-readonly="read_license"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p> 
+                </div>
+
+                <div ng-show="read_license">  
+                <input type="text" class="form-control" readonly ng-model="newlicense.Starting_date | date:'dd-MMM-yyyy'"> 
+               </div>        
+          </div>
+          <div class="form-group">
+              <label class="control-label">Licensing Officer</label>
+              <input type="text" class="form-control" ng-model="newlicense.Licensing_Officer" ng-readonly="read_license" >         
+          </div>
+          <div ng-hide="read_license">
+          <button type="button" class="btn btn-primary" ng-click="saveLicense()">Add</button>
+          </div>
+      </div>
+    </script>
+
+
+
+<script type="text/ng-template" id="customPopupTemplate.html">
+  <div class="custom-popup-wrapper"
+     ng-style="{top: position().top+'px', left: position().left+'px'}"
+     style="display: block;"
+     ng-show="isOpen() && !moveInProgress"
+     aria-hidden="{{!isOpen()}}">
+    <p class="message">select location from drop down.</p>
+
+    <ul class="dropdown-menu" role="listbox">
+        <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+            ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+            <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+        </li>
+    </ul>
+  </div>
+</script>
+
+
+
+
+<script type="text/ng-template" id="newTracking.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="close_tracking()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">New Vessel Tracking</h3>
+        </div>
+        <div class="modal-body typeahead-demo">
+          <div class="form-group">
+              <label class="control-label">Industrial Vessel ID</label>
+              <input type="text" ng-model="customPopupSelected" placeholder="Search Vessel ID" uib-typeahead="state as state.Vessel_id for state in industrial_vessel | filter:{Vessel_id:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
+          </div>
+          <div class="form-group">
+              <label class="control-label">Vessel Name</label>
+              <input type="text" class="form-control" ng-model="newtracking.name" readonly>         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Change Type</label>
+              <select class="form-control" ng-model="newtracking.type" ng-change="changeType()">
+                <option ng-repeat="d in trackingList" value="{{d.Change_id}}">{{d.Change_type}}</option>
+              </select>       
+          </div>
+
+          <div ng-show="isType(2)">
+            <div class="form-group">
+               <label class="control-label">New Owner</label>
+              <input type="text" class="form-control" ng-model="newtracking.item">  
+            </div>
+          </div>
+          <div ng-show="isType(3)">
+            <div class="form-group">
+               <label class="control-label">New Manager</label>
+              <input type="text" class="form-control" ng-model="newtracking.item">  
+            </div>
+          </div>
+          <div ng-show="isType(4)">
+            <div class="form-group">
+               <label class="control-label">New Flag</label>
+              <!--<input type="text" class="form-control" ng-model="newtracking.item"> --> 
+              <select class="form-control" ng-model="newtracking.item" >
+                      <option ng-repeat="d in flagList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+            </div>
+          </div>
+
+          <div ng-show="isType(5)">
+            <div class="form-group">
+               <label class="control-label">New Fishing Gear</label>
+             <!-- <input type="text" class="form-control" ng-model="changedItem"> -->
+
+              <select class="form-control" ng-model="newtracking.item">
+                      <option ng-repeat="d in fishing_gearList" value="{{d.code}}">{{d.name}}</option>
+                    </select>
+
+            </div>
+          </div>
+
+          <div ng-show="isType(6)">
+            <div class="form-group">
+               <label class="control-label">New Vessel Name</label>
+              <input type="text" class="form-control" ng-model="newtracking.item">  
+            </div>
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Change Date</label>
+             <!-- <input type="text" class="form-control" ng-model="newtracking.date"> -->
+             <p class="input-group">
+               <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newtracking.date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"readonly />
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </p>
+
+
+          </div>
+          <div class="form-group">
+              <label class="control-label">Change Description</label>
+              <textarea class="form-control" ng-model="newtracking.description" rows="4"></textarea>       
+          </div>
+          
+          <button type="button" class="btn btn-primary" ng-click="saveTrack()">Add</button>
+      </div>
+    </script>
+    
+
+<script type="text/ng-template" id="deleteModal.html">
+        <div class="modal-header  btn-danger">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeDelete()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Delete</span>
+        </div>
+        <div class="modal-body">
+          {{deleteText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="delete()">Yes</button>
+          <button type="button" class="btn btn-danger" ng-click="nodelete()">No</button>
+      </div>
+    </script>
+    
+<script type="text/ng-template" id="alertModal.html">
+        <div class="modal-header btn-danger">
+            <span class="modal-title"><i class="fa fa-warning"></i> Alert</span>
+        </div>
+        <div class="modal-body">
+          {{alertText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="closeAlert()">Ok</button>
+      </div>
+</script>
+<script type="text/ng-template" id="exportModal.html">
+        <div class="modal-header  btn-success">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeExport()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title">Export</span>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="10%"> &nbsp;</th>
+                  <th width="30%"> &nbsp;</th>
+                  <th width="60%"> &nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="excel"> </td>
+                <td><i class="fa fa-file-excel-o"></i></td>
+                <td> CSV</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="pdf"></td>
+                <td><i class="fa fa-file-pdf-o"></i> </td>
+                <td> PDF</td>
+              </tr>
+              <tr>
+                <td><input type="radio" ng-model="exportSelected" value="word"></td>
+                <td><i class="fa fa-file-word-o"></i></td>
+                <td> Word</td>
+              </tr>
+              </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="export()">Export</button>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="crewmanager.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closecrew()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">Crew Management : {{crewHeader}}</h3>
+        </div>
+        <div class="modal-body">
+
+
+          <ul class="nav nav-tabs nav-justified">
+          <li ng-class="{active:isSelected(1)}"><a href ng-click="setSelected(1)" data-toggle="tab"><strong>New Crew</strong></a></li>
+          <li ng-class="{active:isSelected(2)}"><a href ng-click="setSelected(2)" data-toggle="tab"><strong>Crew List</strong></a></li>
+         
+        </ul>
+
+       <div class="tab-content">
+          <div ng-show="isSelected(1)">
+               <div class="tab-pane">
+               <div class="form-group">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" ng-model="newcrew.name">         
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Role</label>
+              <!--<input type="text" class="form-control" ng-model="newtracking.type">  -->
+              <select class="form-control" ng-model="newcrew.role">
+                <option>Captain</option>
+                <option>Staff</option>
+
+              </select>       
+          </div>
+          <div class="form-group">
+              <label class="control-label">Social Security No</label>
+              <input type="text" class="form-control" ng-model="newcrew.social">  
+              <input type="hidden" ng-model="crewHeader">       
+          </div>
+          <div class="form-group">
+              <label class="control-label">Certification</label>
+              <input type="text" class="form-control" ng-model="newcrew.certification">
+                  
+          </div>
+          <div class="form-group">
+              <label class="control-label">Nationality</label>
+              <input type="text" class="form-control" ng-model="newcrew.nationality">         
+          </div>
+          
+          <button type="button" class="btn btn-primary" ng-click="saveCrew()">Add</button>
+      </div>
+               </div> <!-- end of set  1 -->
+
+          <div ng-show="isSelected(2)">
+              <div class="tab-pane">
+                      <div class="table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="50%">Name</th>
+                                <th width="20%">Role</th>
+                                 <th width="30%">Nationality</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="t in selectedcrewList">
+                                  <td>{{t.name}} </td>
+                                  <td>{{t.role}}</td>
+                                  <td>{{t.nationality}}</td>
+                              </tr>
+                            </tbody>
+                      </div>
+          </div>
+          </div>
+
+      </div>          
+    </script>
+
+
+    <script type="text/ng-template" id="statusModal.html">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closestatus()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">Status Change : {{statusHeader}}</h3>
+        </div>
+        <div class="modal-body">
+       
+          <div class="form-group">
+              <label class="control-label">Change</label>
+              <!-- <input type="text" class="form-control" ng-model="status.type"> -->
+              <select class="form-control" ng-model="statusChange.Change_type">
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+
+          </div>
+
+          <div class="form-group">
+              <label class="control-label">Description</label>
+              <!--<input type="text" class="form-control" ng-model="newtracking.type">  -->
+              <textarea class="form-control" ng-model="statusChange.Change_description"></textarea> 
+              <input type="hidden" ng-model="vessel_id">   
+          </div>
+          <div class="form-group">
+              <label class="control-label">Date</label>
+              <!--<input type="text" class="form-control" ng-model="statusChange.date"> -->
+
+              <p class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="statusChange.Change_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-readonly="read_license" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+              </p> 
+
+          </div>
+
+          <button type="button" class="btn btn-primary" ng-click="saveStatus()">Change</button>
+      </div>
+         
+    </script>
+
+
+    <script type="text/ng-template" id="numberofVessel.html">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closestatus()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{statusHeader}}</h3>
+        </div>
+        <div class="modal-body main_text">
+          <ul class="nav nav-tabs nav-justified">
+          <li ng-class="{active:isSelected(1)}"><a href ng-click="setSelected(1)" data-toggle="tab">Vessel List</a></li>
+          <li ng-class="{active:isSelected(2)}"><a href ng-click="setSelected(2)" data-toggle="tab">Vessel Replacement</a></li>
+         
+        </ul>
+
+        <div class="tab-content">
+            <div ng-show="isSelected(1)">
+                <div class="table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="20%">Vessel ID</th>
+                                <th width="40%">Vessel Name</th>
+                                <th width="20%">Flag</th>
+                                <th width="20%">Registration</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="n in selectedVessels">
+                                  <td>{{n.Vessel_id}}</td>
+                                  <td>{{n.Current_vessel_name}}</td>
+                                  <td>{{n.Name}}</td>
+                                  <td>{{n.Date_registration | date:'dd-MMM-yyyy'}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                </div>
+            </div>
+            <div ng-show="isSelected(2)">
+            <br>
+              <div class="error_div" ng-show="replace_error"> Old Vessel and New Vessel are the same, please change and continue </div>
+              <div class="form-group">
+                  <label class="control-label">Old Vessel</label>
+                  <select class="form-control" ng-model="replacement.oldreplace" ng-change="replace_error=false">
+                    <option ng-repeat="a in selectedVessels" value="{{a.Vessel_id}}">{{a.Current_vessel_name}} </option>
+                  </select>    
+              </div>
+              <div class="form-group">
+                  <label class="control-label">New Vessel</label>
+                  <select class="form-control" ng-model="replacement.newreplace" ng-change="replace_error=false">
+                    <option  ng-repeat="b in selectedVessels" value="{{b.Vessel_id}}">{{b.Current_vessel_name}} </option>
+                  </select>         
+              </div>
+              <button type="button" class="btn btn-primary" ng-click="replaceVessel()">Replace</button>
+            </div>
+        </div>
+        </div>
+      </div>          
+    </script>
+
+
+    <script type="text/ng-template" id="numberofLicense.html">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="closestatus()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title">{{statusHeader}}</h3>
+        </div>
+        <div class="modal-body main_text">
+          
+       
+                <div class="table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="30%">License ID</th>
+                                <th width="30%">Agreement Type</th>
+                                <th width="20%">End Date</th>
+                                <th width="20%">Issue Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                        
+                              <tr ng-repeat="d in selectedLicenses">
+                                  <td>{{d.License_id}}</td>
+                                  <td>{{d.Name}}</td>
+                                  <td>{{d.End_date | date:'dd-MMM-yyyy'}}</td>
+                                  <td>{{d.Date_issue | date:'dd-MMM-yyyy'}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                </div>
+            </div>       
+
+    </script>
+
+
+
+

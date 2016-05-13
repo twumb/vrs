@@ -1,0 +1,216 @@
+<div class="row main_text" ng-init="init()">
+  <div class="col-lg-12">
+    
+    <ol class="breadcrumb">
+    <li ng-class="{active:isSet(1)}"><a href data-toggle="tab" ng-click="setTab(1)">Permissions</a></li>
+    <li ng-class="{active:isSet(2)}"><a href data-toggle="tab" ng-click="setTab(2)">Assign users to group</a></li>
+    <li ng-class="{active:isSet(3)}"><a href data-toggle="tab" ng-click="setTab(3)">Add/Edit users</a></li>
+
+  </ol>
+   
+  </div>
+
+  <div class="tab" ng-show="isSet(1)">
+  	    <div class="row">
+  	    <div class="col-lg-3 col-md-3">
+  	    	<div class="panel">
+				  
+				     	<!--<ol class="breadcrumb">
+				     		<li><a href ng-click="showGroup()"> Add</a></li>
+				     		<li><a href>Delete</a></li>
+				     		<li><a href>Rename</a></li
+				     	</ol> -->
+
+              <div class="panel-heading green_">
+              <a href ng-click="showGroup()"> Add</a>
+          </div>
+				  
+				  <div class="panel-body">
+            <div class="table-responsive">
+          <table class="table table-striped">
+            <!--<thead>
+              <tr>
+                <th width="100%">Name</th>
+              </tr>
+            </thead> -->
+            <tbody>
+
+              <tr ng-repeat="d in usergroupList">
+                    <td width="5%"><a href><i class="fa fa-edit"></i></a></td>
+                    <td width="5%"><a href><i class="fa fa-minus-circle"></i></i></td>
+                    <td width="90%"><a href ng-click="groupRight(d.GroupID)">{{d.Label}}</a></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+				  </div>
+			</div>
+
+  	    </div>
+  	    <div class="col-lg-9 col-md-9">
+  	    <div class="panel">
+				  <div class="panel-heading green_">
+				      Permissions List
+				  </div>
+				  <div class="panel-body">
+
+         <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th width="55%">Tables</th>
+                <th width="5%">Add</th>
+                <th width="5%">Edit</th>
+                <th width="5%">Delete</th>
+                <th width="10%">List/View</th>
+                <th width="10%">Print/Export</th>
+                <th width="5%">Import</th>
+                <th width="5%">Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="d in list">
+                <td> {{d.name}}</td>
+                <td> <!--<input type="checkbox" data-checklist-model="checkList.add" checklist-value="S"> -->
+
+                  <input type="checkbox" ng-checked="addCheck(d.status)">
+                </td>
+                <td> 
+                <input type="checkbox" ng-checked="editCheck(d.status)">
+
+                <!--<input type="checkbox" data-checklist-model="checkList.edit" checklist-value="d.Inspection_id"> --></td>
+                <td> <input type="checkbox" ng-checked="deleteCheck(d.status)"></td>
+                <td> <input type="checkbox" ng-checked="listCheck(d.status)"></td>
+                <td> <input type="checkbox" ng-checked="printCheck(d.status)"></td>
+                <td> <input type="checkbox" ng-checked="importCheck(d.status)"></td>
+                <td> <input type="checkbox" ng-checked="adminCheck(d.status)"></td>
+                <!--<td> <input type="checkbox" data-checklist-model="checkList.delete" checklist-value="d.Inspection_id"></td>
+                <td> <input type="checkbox" data-checklist-model="checkList.list" checklist-value="d.Inspection_id"></td>
+                <td> <input type="checkbox" data-checklist-model="checkList.print" checklist-value="d.Inspection_id"></td>
+                <td> <input type="checkbox" data-checklist-model="checkList.import" checklist-value="d.Inspection_id"></td>
+                <td> <input type="checkbox" data-checklist-model="checkList.admin" checklist-value="d.Inspection_id"></td> -->
+
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+
+				  </div>
+			</div>
+  	    </div>
+  	   	</div>
+  </div>
+  <div class="tab" ng-show="isSet(2)">
+  	   
+        <div class="col-lg-12">
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    Permissions List
+                </div>
+                <div class="panel-body">
+
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <th width="">Users</th>
+                    
+
+                     <th ng-repeat="d in usergroupList"> {{d.Label}}</th>
+                   
+
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="d in userList">
+                      <td>{{d.UserName}}</td>
+                      <td ng-repeat="e in usergroupList">
+                       <input type="checkbox" ng-checked="permitCheck(d.GroupID, e.GroupID)">
+                      <!--{{checkStat(d.GroupID, e.GroupID)}} --> </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        	   	</div>
+        </div>
+        </div>
+
+  </div>
+  <div class="tab" ng-show="isSet(3)">
+  	    <div class="col-lg-12">
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    Users List
+                </div>
+                <div class="panel-body">
+
+              <div class="table-responsive">
+                <button class="btn btn-default" ng-click="addUser()"> Add User</button>
+                <table class="table table-striped">
+                  <thead>
+                    <th width="50%">Users</th>
+                    <th width="50%">Email</th>
+                    
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="d in loginList">
+                      <td><a href ng-click="editUser(d)">{{d.login}}</a></td>
+                      <td> {{d.email}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+        </div>
+        </div>
+
+  </div>
+
+
+</div>
+
+<script type="text/ng-template" id="groupModal.html">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" ng-click="closegroupModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title"> New Group</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" ng-model="temp.code" ng-readonly="temp_read"   >         
+          </div>
+
+        
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="saveGroup()">Save</button>
+      </div>
+</script>
+
+<script type="text/ng-template" id="addUserModal.html">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" ng-click="closeUser()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="modal-title"> New User</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" ng-model="newuser.login" ng-readonly="newuser_read"   >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Password</label>
+              <input type="password" class="form-control" ng-model="newuser.password" ng-readonly="newuser_read"   >         
+          </div>
+          <div class="form-group">
+              <label class="control-label">Email</label>
+              <input type="text" class="form-control" ng-model="newuser.email" ng-readonly="newuser_read"   >         
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="saveNewUser()">{{button}}</button>
+      </div>
+</script>
+
+
